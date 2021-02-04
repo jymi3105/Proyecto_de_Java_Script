@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>indexedDB_18 - Biblioteca</title>
+	<title>ESTUDIO DE LAS PLAGAS FORESTALES</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" href="recursos/favicon.ico">
 	<link rel="stylesheet" href="css/estilos2.css">
@@ -11,12 +11,11 @@
 </head>
 
 <body>
-	<h1>indexedDB_18 - Biblioteca</h1>
-	<h2>LIBROS</h2>
+	<h1>ESTUDIO DE LAS PLAGAS FORESTALES</h1>
 	<hr />
 
 	<div id="cuadroBotones">
-		<button id="botonCargar">Cargar libros</button>
+		<button id="botonCargar">Cargar Plagas</button>
 
 	</div>
 
@@ -50,27 +49,27 @@
 				<span>Tratamiento Fitosanitario</span>
 				<input type="text" id="tFitosanitario">
 			</div>
-			<a class="button" href="Material/examen.html">Examen</a>
+			<a class="button" href="examen.html">Examen</a>
 			<button class="button" onclick="hacerVisible()">SABER MÁS</button>
 		</div>
 		<div class="imagenes">
-			<img src="" id="imgAdulto">
-			<img src="" id="imgLarva">
+			<img src="" id="imgAdulto" alt="Imagen de un ejemplar adulto">
+			<img src="" id="imgLarva" alt="Imagen de un ejemplar es estadio larvario">
 		</div>
 	</div>
 	<div id="modal_container" class="modal_container show">
 		<div class="modal">
 			<div class="foto">
 				<h2>hospedante</h2>
-				<img src="Material/fotos_arboles/chopo.jpg" alt="">
+				<img id="imgHospedante" src="Material/fotos_arboles/chopo.jpg" alt="Especie hospedante">
 			</div>
 			<div class="foto">
 				<h2>daños</h2>
-				<img src="Material/fotos_daños/diprion_danios.jpg" alt="">
+				<img id="imgDanio" src="Material/fotos_daños/diprion_danios.jpg" alt="Daños producidos">
 			</div>
 			<div class="foto">
-				<h2>trampa</h2>
-				<img src="Material/Fotos_Nidos/diprion_puesta.png" alt="">
+				<h2>Puesta</h2>
+				<img id="imgPuesta" src="Material/Fotos_Nidos/diprion_puesta.png" alt="Puesta realizada">
 			</div>
 		</div>
 	</div>

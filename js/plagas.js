@@ -93,6 +93,7 @@ function crearIndicesBD() {
 	var peticion, bd, almacenPlagas;
 
 	if (window.indexedDB) {
+		//AQUI CREAMOS TAMBIEN LA BASE DE DATOS EN EL CASO DE NO EXISTIR
 		peticion = window.indexedDB.open("plagasBD", 1);
 
 		peticion.onsuccess = function (evento) {
@@ -101,19 +102,54 @@ function crearIndicesBD() {
 			var transaccion = bd.transaction(bd.objectStoreNames, "readwrite");
 
 			almacenPlagas = transaccion.objectStore("plagas");
-			almacenPlagas.put({ id: 1, nComun: "blanquilla del chopo", nCientifico: "Leucoma salicis", oCuarentena: "NO", hospedante: "Populus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Leucoma_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Leucoma_larva.jpg" });
-			almacenPlagas.put({ id: 2, nComun: "longicornio del pino", nCientifico: "Monochamus galloprovincialis", oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Monochamus_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Monochamus_Larvas.png" });
-			almacenPlagas.put({ id: 3, nComun: "mosca sierra del pino", nCientifico: "Diprion pini", oCuarentena: "NO", hospedante: "Pinus", tFitosanitario: " BENFLURALINA 18%", imagenAdulto: "Material/Fotos_Adultos/diprion_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Diprion_larva.jpg" });
-			almacenPlagas.put({ id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO", hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Tortrix_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Tortrix_larva.jpg" });
-			almacenPlagas.put({ id: 5, nComun: "lagarta peluda", nCientifico: "Limantria dispar", oCuarentena: "NO", hospedante: "Quercus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/limantria_adulto.jpg", imagenLarva: "Material/fotos_Larvas/limantria_larva.jpg" });
-			almacenPlagas.put({ id: 6, nComun: "cochinilla de los pinos", nCientifico: "Leucaspis pini", oCuarentena: "NO", hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/LeucaspisPini_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Leucaspis_larva.png" });
-			almacenPlagas.put({ id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO", hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/cerambixCerdo_adulto.jpg", imagenLarva: "Material/fotos_Larvas/cerambyx_cerdo_larva.jpg" });
-			almacenPlagas.put({ id: 8, nComun: "mariposa lagarta cola parda", nCientifico: "Euproctis chrysorrhoea", oCuarentena: "NO", hospedante: "Salix", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/Euproctis chrysorrhoea_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Euproctis chrysorrhoea_larva.jpg" });
-			almacenPlagas.put({ id: 9, nComun: "procesionaria del pino", nCientifico: "Thaumetopoea pityocampa", oCuarentena: "NO", hospedante: "Pinus", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/procesionariaAdulto.jpg", imagenLarva: "Material/fotos_Larvas/procesionaria1.png" });
-			almacenPlagas.put({ id: 10, nComun: "chinche americana de las piñas", nCientifico: "Leptoglossus occidentalis", oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/Leptoglosus_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Leptoglosus_larva.jpg" });
-			almacenPlagas.put({ id: 11, nComun: "escarabajo rojo del chopo", nCientifico: "Chrysomela populi", oCuarentena: "NO", hospedante: "Populus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/Chrysomela_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Chrysomela_larva.jpg" });
-			almacenPlagas.put({ id: 12, nComun: "gorgojo perforador del chopo", nCientifico: "Cryptorhynchus lapathi", oCuarentena: "NO", hospedante: "Populus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Chrysomela_adulto.jpg", imagenLarva: "Material/fotos_Larvas/Cryptorhynchus_Larva.jpg" });
+			almacenPlagas.put({ id: 1, nComun: "blanquilla del chopo", nCientifico: "Leucoma salicis", oCuarentena: "NO", 
+			hospedante: "Populus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Leucoma_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/Leucoma_larva.jpg", aprendido: "no" });
 
+			almacenPlagas.put({ id: 2, nComun: "longicornio del pino", nCientifico: "Monochamus galloprovincialis", 
+			oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Monochamus_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/Monochamus_Larvas.png", aprendido: "no" });
+
+			almacenPlagas.put({ id: 3, nComun: "mosca sierra del pino", nCientifico: "Diprion pini", 
+			oCuarentena: "NO", hospedante: "Pinus", tFitosanitario: " BENFLURALINA 18%", imagenAdulto: "Material/Fotos_Adultos/diprion_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/Diprion_larva.jpg", aprendido: "no" });
+
+			/*almacenPlagas.put({ id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO", 
+			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Tortrix_adulto.jpg",
+			 imagenLarva: "Material/fotos_Larvas/Tortrix_larva.jpg", aprendido: "no" });
+
+			almacenPlagas.put({ id: 5, nComun: "lagarta peluda", nCientifico: "Limantria dispar", oCuarentena: "NO", 
+			hospedante: "Quercus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/limantria_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/limantria_larva.jpg", aprendido: "no" });
+
+			almacenPlagas.put({ id: 6, nComun: "cochinilla de los pinos", nCientifico: "Leucaspis pini", oCuarentena: "NO", 
+			hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/LeucaspisPini_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/Leucaspis_larva.png", aprendido: "no" });
+
+			almacenPlagas.put({ id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO", 
+			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/cerambixCerdo_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/cerambyx_cerdo_larva.jpg", aprendido: "no" });
+
+			almacenPlagas.put({ id: 8, nComun: "mariposa lagarta cola parda", nCientifico: "Euproctis chrysorrhoea", oCuarentena: "NO", 
+			hospedante: "Salix", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/Euproctis chrysorrhoea_adulto.jpg",
+			 imagenLarva: "Material/fotos_Larvas/Euproctis chrysorrhoea_larva.jpg", aprendido: "no" });
+
+			almacenPlagas.put({ id: 9, nComun: "procesionaria del pino", nCientifico: "Thaumetopoea pityocampa", oCuarentena: "NO", 
+			hospedante: "Pinus", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/procesionariaAdulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/procesionaria1.png", aprendido: "no" });
+			
+			almacenPlagas.put({ id: 10, nComun: "chinche americana de las piñas", nCientifico: "Leptoglossus occidentalis", 
+			oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/Leptoglosus_adulto.jpg",
+			 imagenLarva: "Material/fotos_Larvas/Leptoglosus_larva.jpg", aprendido: "no" });
+			
+			almacenPlagas.put({ id: 11, nComun: "escarabajo rojo del chopo", nCientifico: "Chrysomela populi", 
+			oCuarentena: "NO", hospedante: "Populus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/Chrysomela_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/Chrysomela_larva.jpg", aprendido: "no" });
+
+			almacenPlagas.put({ id: 12, nComun: "gorgojo perforador del chopo", nCientifico: "Cryptorhynchus lapathi", 
+			oCuarentena: "NO", hospedante: "Populus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Chrysomela_adulto.jpg", 
+			imagenLarva: "Material/fotos_Larvas/Cryptorhynchus_Larva.jpg", aprendido: "no" });
+*/
 		};
 
 
