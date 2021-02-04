@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+}
+
+#cuadroIzquierda {
+    border: 4px solid gray;
+    width: 30%;
+    float: left;
+    margin: 20px;
+    padding: 30px 30px;
+    background-color: rgb(227, 233, 221);
+    max-width: 20%;
+}
+
+#cuadroDerecha, #cuadroIzquierda {
+    border: 4px solid gray;
+    width: 30%;
+    float: left;
+    margin: 10px 73px;
+    padding: 10px 10px;
+    background-color: rgb(227, 233, 221);
+    width: 55%;
+    box-shadow: 10px 10px 8px brown;
+    border-radius: 10px;
+}
+
+.info {
+    float: left;
+    max-width: 40%;
+}
+
+.imagenes {
+    float: right;
+    max-width: 55%;
+}
+
+#cuadroBotones {
+    width: 50%;
+    margin: 20px;
+    padding: 20px 30px;
+}
+
+button, .button {
+    background-color: #033a05;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+}
+
+.button, #imagenes {
+    display: none;
+}
+
+header {
+    background-color: rgb(204, 231, 231);
+    width: 70%;
+    margin: auto;
+    border: 3px solid grey;
+}
+
+/*#estudiar, .imagenes, #btnPrueba {
+    display: none;
+}*/
+
+button[disabled] {
+    background-color: rgb(126, 97, 97);
+}
+
+input[type=text], input[type=number], img {
+    width: 100%;
+    padding: 5px 10px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Verdana', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: rgb(19, 12, 36);
+}
+
+select {
+    width: 100%;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Verdana', sans-serif;
+    font-weight: 800;
+    color: teal;
+}
+
+option {
+    background-color: tan;
+    padding: 10px;
+    font-size: 20px;
+}
+
+span {
+    display: block;
+    color: rgb(14, 63, 39);
+    font-family: verdana;
+    font-size: 20px;
+}
+
+img {
+    float: right;
+}
+
+#cuadroDerecha div {
+    padding: 10px 10px;
+}
+
+body {
+    text-align: center;
+}
+
+/*ESTILOS HECHOS PARA LA VENTANA MODOAL QUE QUIERO HACER*/
+
+/*ESTILOS PROPIOS DE LA VENTANA MODAL*/
+
+.foto img {
+    min-width: 90%;
+    max-width: 100%;
+}
+
+.foto {
+    float: left;
+    width: 46%;
+    margin: 15px;
+    padding: 15px;
+}
+
+#modal_container {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    transition: opacity 1s ease;
+}
+
+.modal {
+    background-color: #fff;
+    width: 1000px;
+    max-width: 100%;
+    padding: 30px 50px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.show {
+    pointer-events: auto;
+    opacity: 1;
+}

@@ -1,0 +1,12 @@
+#nComunes, #nCientifico{
+    border: 1px solid grey;
+    width: 30%;
+    float: left;
+    margin: 20px;
+}
+
+#nComunes p, #nCientifico p{
+    margin: 2px;
+    padding: 2px;
+    border: 1px dotted red;
+}

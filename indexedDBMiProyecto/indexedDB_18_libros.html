@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>indexedDB_18 - Biblioteca</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="recursos/favicon.ico">
+	<link rel="stylesheet" href="css/estilos2.css">
+	<script type="text/javascript" src="js/plagas.js"></script>
+</head>
+
+<body>
+	<h1>indexedDB_18 - Biblioteca</h1>
+	<h2>LIBROS</h2>
+	<hr />
+
+	<div id="cuadroBotones">
+		<button id="botonCargar">Cargar libros</button>
+
+	</div>
+
+	<div id="cuadroIzquierda">
+		<select id="listaPlagas" size="12"></select>
+	</div>
+
+	<div id="cuadroDerecha">
+		<div class="info">
+			<div>
+				<span>ID plaga</span>
+				<input type="number" id="id">
+			</div>
+			<div>
+				<span>Nombre Comun</span>
+				<input type="text" id="nComun">
+			</div>
+			<div>
+				<span>Nombre Cientifico</span>
+				<input type="text" id="nCientifico">
+			</div>
+			<div>
+				<span>Hospedante</span>
+				<input type="text" id="hospedante">
+			</div>
+			<div>
+				<span>Organimsmo de Cuarentena</span>
+				<input type="text" id="oCuarentena">
+			</div>
+			<div>
+				<span>Tratamiento Fitosanitario</span>
+				<input type="text" id="tFitosanitario">
+			</div>
+			<a class="button" href="Material/examen.html">Examen</a>
+			<button class="button" onclick="hacerVisible()">SABER MÁS</button>
+		</div>
+		<div class="imagenes">
+			<img src="" id="imgAdulto">
+			<img src="" id="imgLarva">
+		</div>
+	</div>
+	<div id="modal_container" class="modal_container show">
+		<div class="modal">
+			<div class="foto">
+				<h2>hospedante</h2>
+				<img src="Material/fotos_arboles/chopo.jpg" alt="">
+			</div>
+			<div class="foto">
+				<h2>daños</h2>
+				<img src="Material/fotos_daños/diprion_danios.jpg" alt="">
+			</div>
+			<div class="foto">
+				<h2>trampa</h2>
+				<img src="Material/Fotos_Nidos/diprion_puesta.png" alt="">
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
