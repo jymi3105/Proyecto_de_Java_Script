@@ -1,5 +1,6 @@
 window.onload = codigo;
 var claseOrigen, claseDestino, numPlagas;
+var galeria;
 function codigo() {
     var peticion, bd, transaccion, almacen;
     refrescarListaPlagas();
@@ -32,6 +33,7 @@ function codigo() {
                         //FUNCION, ME LO APLICA CUANDO AUN NO TIENE PARRAFOS
                         desordena();
                         hacerArrastrables();
+
                     }
                 }
             };
@@ -49,38 +51,49 @@ function codigo() {
             console.log("IndexedDB no está soportado");
         }
     }
-
-    function insertarElementoControlLista(plaga) {
-        //INSERCCION DE LOS NOMBRE COMUNES
-        var htmlTexto = plaga.nComun;
-        var listaItem = document.createElement("p");
-        listaItem.setAttribute("class", plaga.id);
-        listaItem.setAttribute("id", plaga.id + "comun");
-        listaItem.textContent = htmlTexto;
-        var lista = document.getElementById("nComunes");
-        lista.appendChild(listaItem);
-
-        //AHORA LOS NOMBRES CIENTIFICOS
-        htmlTexto = plaga.nCientifico;
-        listaItem = document.createElement("p");
-        listaItem.setAttribute("class", plaga.id);
-        listaItem.textContent = htmlTexto;
-        lista = document.getElementById("nCientifico");
-        lista.appendChild(listaItem);
-
-        //AHORA LAS IMAGENES DE LAS LARVAS
-        var htmlFuente=plaga.imagenLarva;
-        var imagenLarva=document.createElement("img");
-        imagenLarva.setAttribute("class", plaga.id);
-        imagenLarva.setAttribute("id", plaga.id + "iLarva");
-        imagenLarva.setAttribute("src", htmlFuente);
-        imagenLarva.setAttribute("alt", "Imagen de una larva");
-        var galeria=document.getElementById("imgLarvas");
-        galeria.appendChild(imagenLarva);
-    }
-
 }
 
+//FUNCION PARA INSERTAR TODOS LOS ELEMENTOS EN LA WEB DEPENDIENDO DEL INDEXEDDB
+function insertarElementoControlLista(plaga) {
+    //INSERCCION DE LOS NOMBRE COMUNES
+    var htmlTexto = plaga.nComun;
+    var listaItem = document.createElement("p");
+    listaItem.setAttribute("class", plaga.id);
+    listaItem.setAttribute("id", plaga.id + "comun");
+    listaItem.textContent = htmlTexto;
+    var lista = document.getElementById("nComunes");
+    lista.appendChild(listaItem);
+
+    //AHORA LOS NOMBRES CIENTIFICOS
+    htmlTexto = plaga.nCientifico;
+    listaItem = document.createElement("p");
+    listaItem.setAttribute("class", plaga.id);
+    listaItem.textContent = htmlTexto;
+    lista = document.getElementById("nCientifico");
+    lista.appendChild(listaItem);
+
+    //AHORA LAS IMAGENES DE LAS LARVAS
+    var htmlFuente=plaga.imagenLarva;
+    var imagenLarva=document.createElement("img");
+    imagenLarva.setAttribute("class", plaga.id);
+    imagenLarva.setAttribute("id", plaga.id + "iLarva");
+    imagenLarva.setAttribute("src", htmlFuente);
+    imagenLarva.setAttribute("alt", "Imagen de una larva");
+    galeria=document.getElementById("imgLarvas");
+    galeria.appendChild(imagenLarva);
+    galeria.style.display="none";
+
+    //AHORA LAS IMAGENES DE LAS ADULTOS
+    htmlFuente=plaga.imagenAdulto;
+    var imagenAdulto=document.createElement("img");
+    imagenAdulto.setAttribute("class", plaga.id);
+    imagenAdulto.setAttribute("id", plaga.id + "iAdulto");
+    imagenAdulto.setAttribute("src", htmlFuente);
+    imagenAdulto.setAttribute("alt", "Imagen de un adulto");
+    galeria=document.getElementById("imgAdulto");
+    galeria.appendChild(imagenAdulto);
+    galeria.style.display="none";
+}
 
 function desordena() {
     var nodobody = document.getElementById("nComunes").getElementsByTagName("p");
@@ -151,7 +164,7 @@ function hacerArrastrables() {
             document.getElementsByClassName("nCientifico")[0].style.display = "none";
             //DE MOMENTO LO DEJO DESACTIVADO, PORQUE NO TENGO LOS ARBOLES AÑADIDOS
             //ADEMAS PREFIERO AÑADIR PRIMERO LAS LARVAS
-           // document.getElementsByClassName("arboles")[0].style.display = "block";
+            galeria.style.display = "block";
         }
     });
 
