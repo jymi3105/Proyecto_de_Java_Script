@@ -33,7 +33,7 @@ function codigo() {
                         //FUNCION, ME LO APLICA CUANDO AUN NO TIENE PARRAFOS
                         desordena();
                         hacerArrastrables();
-
+                        fJquery();
                     }
                 }
             };
@@ -51,12 +51,13 @@ function codigo() {
             console.log("IndexedDB no está soportado");
         }
     }
+
 }
 
 //FUNCION PARA INSERTAR TODOS LOS ELEMENTOS EN LA WEB DEPENDIENDO DEL INDEXEDDB
 function insertarElementoControlLista(plaga) {
     //INSERCCION DE LOS NOMBRE COMUNES
-    var htmlTexto = plaga.nComun;
+    var htmlTexto = plaga.nComun.toUpperCase();
     var listaItem = document.createElement("p");
     listaItem.setAttribute("class", plaga.id);
     listaItem.setAttribute("id", plaga.id + "comun");
@@ -65,7 +66,7 @@ function insertarElementoControlLista(plaga) {
     lista.appendChild(listaItem);
 
     //AHORA LOS NOMBRES CIENTIFICOS
-    htmlTexto = plaga.nCientifico;
+    htmlTexto = plaga.nCientifico.toUpperCase();
     listaItem = document.createElement("p");
     listaItem.setAttribute("class", plaga.id);
     listaItem.textContent = htmlTexto;
@@ -73,26 +74,26 @@ function insertarElementoControlLista(plaga) {
     lista.appendChild(listaItem);
 
     //AHORA LAS IMAGENES DE LAS LARVAS
-    var htmlFuente=plaga.imagenLarva;
-    var imagenLarva=document.createElement("img");
+    var htmlFuente = plaga.imagenLarva;
+    var imagenLarva = document.createElement("img");
     imagenLarva.setAttribute("class", plaga.id);
     imagenLarva.setAttribute("id", plaga.id + "iLarva");
     imagenLarva.setAttribute("src", htmlFuente);
     imagenLarva.setAttribute("alt", "Imagen de una larva");
-    galeria=document.getElementById("imgLarvas");
+    galeria = document.getElementById("imgLarvas");
     galeria.appendChild(imagenLarva);
-    galeria.style.display="none";
+    galeria.style.display = "none";
 
     //AHORA LAS IMAGENES DE LAS ADULTOS
-    htmlFuente=plaga.imagenAdulto;
-    var imagenAdulto=document.createElement("img");
+    htmlFuente = plaga.imagenAdulto;
+    var imagenAdulto = document.createElement("img");
     imagenAdulto.setAttribute("class", plaga.id);
     imagenAdulto.setAttribute("id", plaga.id + "iAdulto");
     imagenAdulto.setAttribute("src", htmlFuente);
     imagenAdulto.setAttribute("alt", "Imagen de un adulto");
-    galeria=document.getElementById("imgAdulto");
+    galeria = document.getElementById("imgAdulto");
     galeria.appendChild(imagenAdulto);
-    galeria.style.display="none";
+    galeria.style.display = "none";
 }
 
 function desordena() {
@@ -113,9 +114,9 @@ function desordena() {
 //FUNCION PARA ACTIVAR EL DRAG AND DROP
 function hacerArrastrables() {
     var parrafosNcien = document.getElementsByClassName("nCientifico")[0].children;
-    numPlagas=parrafosNcien.length;
+    numPlagas = parrafosNcien.length;
     //console.log("numero de plagas: " + numPlagas);
-    
+
     var nombresComunes = document.getElementById("nComunes").children;
     //AHORA TOCA HACER DRAGGABLES A LOS NOMBRES
     for (let i = 0; i < nombresComunes.length; i++) {
@@ -127,46 +128,75 @@ function hacerArrastrables() {
             //Esto es para que cuando hagamos el drop, no aseguremos de que lo dejemos caer, sea una caja diferente
             //AUNQUE AHORA MISMO NO SE MUY BIEN PARA QUE ES UTIL REALMENTE
             clasePadreOrigen = pEvento.target.parentElement.getAttribute("class");
-  
+
         });
         //FASE 2
         parrafosNcien[i].addEventListener("dragover", function (pEvento) {
             pEvento.preventDefault();
+            //jquery para wsaber enpcima de cual estoy encima de donde lo quiero dejar
+            $("#nCientifico > p").animate(function (v, i) {
+                return  '{fontSize: "15px", borderWidth:"1px"}, 200)';
+                
+            });
+            $(parrafosNcien[i]).animate({fontSize: "30px", borderWidth:"5px"}, 200);
         });
 
-    //FASE 3
-    parrafosNcien[i].addEventListener("drop", function (pEvento) {
-        //Esta instruccion es donde campuro los datos que he empezado a arrastrar en la fase 1
-        claseDestino = pEvento.target.getAttribute("class");
-        //Creo que la siguiente instruccion no tiene uso
-        //clasePadreDestino = pEvento.target.parentElement.getAttribute("class");
-        var datos = pEvento.dataTransfer.getData("");
-        claseOrigen = document.getElementById(datos).getAttribute("class");
+        //FASE 3
+        parrafosNcien[i].addEventListener("drop", function (pEvento) {
+            //Esta instruccion es donde campuro los datos que he empezado a arrastrar en la fase 1
+            claseDestino = pEvento.target.getAttribute("class");
+            //Creo que la siguiente instruccion no tiene uso
+            //clasePadreDestino = pEvento.target.parentElement.getAttribute("class");
+            var datos = pEvento.dataTransfer.getData("");
+            claseOrigen = document.getElementById(datos).getAttribute("class");
+            //LE HAGO VOLVER A SU SER
+            $("#nCientifico > p").animate({fontSize: "15px", borderWidth:"1px"}, 200);
+            if (claseDestino == claseOrigen) {
+                //De aqui recojo el objeto que comienzo a arrastrar  
+                parrafosNcien[i].appendChild(document.createTextNode(" -> " + document.getElementById(datos).textContent));
+                //USO DE JQUERY PARA COLOREAR EL FONDO
+              
+                $(parrafosNcien[i]).css("backgroundColor", "greenyellow");
+                //Lo hago desaparecer, porque cuando complete esta parte, las quiero volver a usar
+               console.log(datos);
+                $("#" + datos).hide("slow");
+                //document.getElementById(datos).style.display = "none";
+                numPlagas--;
 
-        if (claseDestino == claseOrigen) {
-            //De aqui recojo el objeto que comienzo a arrastrar  
-            parrafosNcien[i].appendChild(document.createTextNode(" -> " + document.getElementById(datos).textContent));
-            //Lo hago desaparecer, porque cuando complete esta parte, las quiero volver a usar
-            document.getElementById(datos).style.display = "none";
-            numPlagas--;
-            
-        } else {
-            console.log("No coincide las especies");
-        }
-        //Cuando ha unido todos los nombre cientificos con los comunes, que haga lo siguiente
-        if (numPlagas == 0) {
-            for (let j = 0; j < nombresComunes.length; j++) {
-                console.log("N plagas: " + numPlagas);
-                nombresComunes[j].style.display = "block";
+            } else {
+                console.log("No coincide las especies");
             }
-            //VUELVO A DAR VALOR AL NUMERO DE PLAGAS PARA COMENZAR DE NUEVO
-            numPlagas = nombresComunes[i].length;
-            document.getElementsByClassName("nCientifico")[0].style.display = "none";
-            //DE MOMENTO LO DEJO DESACTIVADO, PORQUE NO TENGO LOS ARBOLES AÑADIDOS
-            //ADEMAS PREFIERO AÑADIR PRIMERO LAS LARVAS
-            galeria.style.display = "block";
-        }
-    });
+            //Cuando ha unido todos los nombre cientificos con los comunes, que haga lo siguiente
+            if (numPlagas == 0) {
+                for (let j = 0; j < nombresComunes.length; j++) {
+                    console.log("N plagas: " + numPlagas);
+                    /**MEDIANTE JQUERY */
+                    $("#nComunes > p:eq(" + j +")").show("slow");
+                    //nombresComunes[j].style.display = "block";
+                }
+                //VUELVO A DAR VALOR AL NUMERO DE PLAGAS PARA COMENZAR DE NUEVO
+                numPlagas = nombresComunes[i].length;
+                $(".nCientifico").hide("slow");
+                //document.getElementsByClassName("nCientifico")[0].style.display = "none";
+                //DE MOMENTO LO DEJO DESACTIVADO, PORQUE NO TENGO LOS ARBOLES AÑADIDOS
+                //ADEMAS PREFIERO AÑADIR PRIMERO LAS LARVAS
+                $("#imgLarvas").show("slow");
+                //galeria.style.display = "block";
+            }
+        });
 
     }
+}
+
+/*****************VAMOS A METERLE UN POCO DE JQUERY*********************** */
+function fJquery() {
+
+    $(".nComunes > p").hover(function () {
+        $(this).css("backgroundColor", "red");
+        $(this).animate({fontSize: "30px", borderWidth:"5px"}, 200)
+    }, function () {
+        $(".nComunes > p").css("backgroundColor", "white");
+        $(this).animate({fontSize: "18px", borderWidth:"1px"}, 200)
+    });
+
 }

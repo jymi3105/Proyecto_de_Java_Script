@@ -1,12 +1,31 @@
+.nombres{
+    max-width: 60%;
+    min-width: 30%;
+}
+
+
 #nComunes, #nCientifico{
     border: 1px solid grey;
-    width: 30%;
+    width: 45%;
     float: left;
     margin: 20px;
+    float: left;
 }
 
 #nComunes p, #nCientifico p{
-    margin: 2px;
-    padding: 2px;
+    margin: 10px;
+    padding: 8px;
     border: 1px dotted red;
+}
+
+#imgLarvas{
+    width: 60%;
+    float: right;
+}
+
+#imgLarvas img{
+    display: inline-block;
+    max-width: 220px;
+    margin: 10px;
+    padding: 10px;
 }

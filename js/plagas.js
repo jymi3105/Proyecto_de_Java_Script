@@ -82,6 +82,9 @@ function codigo() {
 				document.getElementById("tFitosanitario").value = registroEvento.result.tFitosanitario;
 				document.getElementById("imgAdulto").setAttribute("src", registroEvento.result.imagenAdulto);
 				document.getElementById("imgLarva").setAttribute("src", registroEvento.result.imagenLarva);
+				document.getElementById("imgHospedante").setAttribute("src", registroEvento.result.imagenHospedante);
+				document.getElementById("imgDanio").setAttribute("src", registroEvento.result.imgDanio);
+				document.getElementById("imgPuesta").setAttribute("src", registroEvento.result.imgPuesta);
 			}
 		}
 	}
@@ -104,29 +107,35 @@ function crearIndicesBD() {
 			almacenPlagas = transaccion.objectStore("plagas");
 			almacenPlagas.put({ id: 1, nComun: "blanquilla del chopo", nCientifico: "Leucoma salicis", oCuarentena: "NO", 
 			hospedante: "Populus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Leucoma_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Leucoma_larva.jpg", aprendido: "no" });
+			imagenLarva: "Material/fotos_Larvas/Leucoma_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/chopo.jpg",
+			imgDanio:"Material/fotos_daños/leucoma_danios.png", imgPuesta:"Material/Fotos_Nidos/leucoma_puesta.jpg"});
 
 			almacenPlagas.put({ id: 2, nComun: "longicornio del pino", nCientifico: "Monochamus galloprovincialis", 
 			oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Monochamus_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Monochamus_Larvas.png", aprendido: "no" });
+			imagenLarva: "Material/fotos_Larvas/Monochamus_Larvas.png", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
+			imgDanio:"Material/fotos_daños/Monochamus_danios.jpg", imgPuesta:"Material/Fotos_Nidos/MonochamusHuevos.jpg" });
 
 			almacenPlagas.put({ id: 3, nComun: "mosca sierra del pino", nCientifico: "Diprion pini", 
 			oCuarentena: "NO", hospedante: "Pinus", tFitosanitario: " BENFLURALINA 18%", imagenAdulto: "Material/Fotos_Adultos/diprion_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Diprion_larva.jpg", aprendido: "no" });
+			imagenLarva: "Material/fotos_Larvas/Diprion_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
+			imgDanio:"Material/fotos_daños/diprion_danios.jpg", imgPuesta:"Material/Fotos_Nidos/diprion_puesta.png" });
 
-			/*almacenPlagas.put({ id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO", 
+			almacenPlagas.put({ id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO", 
 			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Tortrix_adulto.jpg",
-			 imagenLarva: "Material/fotos_Larvas/Tortrix_larva.jpg", aprendido: "no" });
+			 imagenLarva: "Material/fotos_Larvas/Tortrix_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/quercus.jpg",
+			 imgDanio:"Material/fotos_daños/tortrix_danio.jpg", imgPuesta:"Material/Fotos_Nidos/tortrix_puesta.png"});
 
 			almacenPlagas.put({ id: 5, nComun: "lagarta peluda", nCientifico: "Limantria dispar", oCuarentena: "NO", 
 			hospedante: "Quercus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/limantria_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/limantria_larva.jpg", aprendido: "no" });
+			imagenLarva: "Material/fotos_Larvas/limantria_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/quercus.jpg",
+			imgDanio:"Material/fotos_daños/Lymantria_danios.jpg", imgPuesta:"Material/Fotos_Nidos/limantria_puesta.jpg"});
 
 			almacenPlagas.put({ id: 6, nComun: "cochinilla de los pinos", nCientifico: "Leucaspis pini", oCuarentena: "NO", 
 			hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/LeucaspisPini_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Leucaspis_larva.png", aprendido: "no" });
+			imagenLarva: "Material/fotos_Larvas/Leucaspis_larva.png", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
+			imgDanio:"Material/fotos_daños/Leucaspis_danios.jpg", imgPuesta:"Material/fotos_daños/Leucaspis_danios.jpg"});
 
-			almacenPlagas.put({ id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO", 
+			/*almacenPlagas.put({ id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO", 
 			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/cerambixCerdo_adulto.jpg", 
 			imagenLarva: "Material/fotos_Larvas/cerambyx_cerdo_larva.jpg", aprendido: "no" });
 
