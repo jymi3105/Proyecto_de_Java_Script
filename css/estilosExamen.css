@@ -19,13 +19,21 @@
 }
 
 #imgLarvas{
-    width: 60%;
+    width: 40%;
     float: right;
 }
+#imgAdulto{
+    width: 55%;
+    float: right;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px brown;
+    background-color: rgb(223, 198, 198);
+}
 
-#imgLarvas img{
+#imgLarvas img, #imgAdulto img{
     display: inline-block;
-    max-width: 220px;
+    max-width: 320px;
     margin: 10px;
     padding: 10px;
 }

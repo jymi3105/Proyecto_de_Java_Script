@@ -75,13 +75,15 @@ function insertarElementoControlLista(plaga) {
 
     //AHORA LAS IMAGENES DE LAS LARVAS
     var htmlFuente = plaga.imagenLarva;
+    var figureLarva = document.createElement("figure");
     var imagenLarva = document.createElement("img");
-    imagenLarva.setAttribute("class", plaga.id);
-    imagenLarva.setAttribute("id", plaga.id + "iLarva");
+    figureLarva.setAttribute("class", plaga.id);
+    figureLarva.setAttribute("id", plaga.id + "iLarva");
     imagenLarva.setAttribute("src", htmlFuente);
     imagenLarva.setAttribute("alt", "Imagen de una larva");
+    figureLarva.appendChild(imagenLarva);
     galeria = document.getElementById("imgLarvas");
-    galeria.appendChild(imagenLarva);
+    galeria.appendChild(figureLarva);
     galeria.style.display = "none";
 
     //AHORA LAS IMAGENES DE LAS ADULTOS
@@ -114,6 +116,8 @@ function desordena() {
 //FUNCION PARA ACTIVAR EL DRAG AND DROP
 function hacerArrastrables() {
     var parrafosNcien = document.getElementsByClassName("nCientifico")[0].children;
+
+
     numPlagas = parrafosNcien.length;
     //console.log("numero de plagas: " + numPlagas);
 
@@ -121,13 +125,12 @@ function hacerArrastrables() {
     //AHORA TOCA HACER DRAGGABLES A LOS NOMBRES
     for (let i = 0; i < nombresComunes.length; i++) {
         nombresComunes[i].setAttribute("draggable", true);
-        var clasePadreOrigen;
         //FASE 1
         nombresComunes[i].addEventListener("dragstart", function (pEvento) {
             pEvento.dataTransfer.setData("", pEvento.target.id);
             //Esto es para que cuando hagamos el drop, no aseguremos de que lo dejemos caer, sea una caja diferente
             //AUNQUE AHORA MISMO NO SE MUY BIEN PARA QUE ES UTIL REALMENTE
-            clasePadreOrigen = pEvento.target.parentElement.getAttribute("class");
+            //clasePadreOrigen = pEvento.target.parentElement.getAttribute("class");
 
         });
         //FASE 2
@@ -135,10 +138,10 @@ function hacerArrastrables() {
             pEvento.preventDefault();
             //jquery para wsaber enpcima de cual estoy encima de donde lo quiero dejar
             $("#nCientifico > p").animate(function (v, i) {
-                return  '{fontSize: "15px", borderWidth:"1px"}, 200)';
-                
+                return '{fontSize: "15px", borderWidth:"1px"}, 200)';
+
             });
-            $(parrafosNcien[i]).animate({fontSize: "30px", borderWidth:"5px"}, 200);
+            $(parrafosNcien[i]).animate({ fontSize: "30px", borderWidth: "5px" }, 200);
         });
 
         //FASE 3
@@ -150,17 +153,15 @@ function hacerArrastrables() {
             var datos = pEvento.dataTransfer.getData("");
             claseOrigen = document.getElementById(datos).getAttribute("class");
             //LE HAGO VOLVER A SU SER
-            $("#nCientifico > p").animate({fontSize: "15px", borderWidth:"1px"}, 200);
+            $("#nCientifico > p").animate({ fontSize: "15px", borderWidth: "1px" }, 200);
             if (claseDestino == claseOrigen) {
                 //De aqui recojo el objeto que comienzo a arrastrar  
                 parrafosNcien[i].appendChild(document.createTextNode(" -> " + document.getElementById(datos).textContent));
                 //USO DE JQUERY PARA COLOREAR EL FONDO
-              
+
                 $(parrafosNcien[i]).css("backgroundColor", "greenyellow");
                 //Lo hago desaparecer, porque cuando complete esta parte, las quiero volver a usar
-               console.log(datos);
                 $("#" + datos).hide("slow");
-                //document.getElementById(datos).style.display = "none";
                 numPlagas--;
 
             } else {
@@ -171,32 +172,93 @@ function hacerArrastrables() {
                 for (let j = 0; j < nombresComunes.length; j++) {
                     console.log("N plagas: " + numPlagas);
                     /**MEDIANTE JQUERY */
-                    $("#nComunes > p:eq(" + j +")").show("slow");
+                    $("#nComunes > p:eq(" + j + ")").show("slow");
                     //nombresComunes[j].style.display = "block";
                 }
                 //VUELVO A DAR VALOR AL NUMERO DE PLAGAS PARA COMENZAR DE NUEVO
-                numPlagas = nombresComunes[i].length;
+
                 $(".nCientifico").hide("slow");
-                //document.getElementsByClassName("nCientifico")[0].style.display = "none";
-                //DE MOMENTO LO DEJO DESACTIVADO, PORQUE NO TENGO LOS ARBOLES AÑADIDOS
-                //ADEMAS PREFIERO AÑADIR PRIMERO LAS LARVAS
                 $("#imgLarvas").show("slow");
-                //galeria.style.display = "block";
+                //TENGO QUE DARLE VALOR DESPUES DE QUE APAREZCAN
+                numPlagas = document.getElementById("imgLarvas").children.length;
+                hacerArrastrablesImg();
             }
         });
-
     }
 }
 
-/*****************VAMOS A METERLE UN POCO DE JQUERY*********************** */
-function fJquery() {
+function hacerArrastrablesImg() {
+    var fotosLarvas = document.getElementById("imgLarvas").children;
+    for (let i = 0; i < fotosLarvas.length; i++) {
 
-    $(".nComunes > p").hover(function () {
-        $(this).css("backgroundColor", "red");
-        $(this).animate({fontSize: "30px", borderWidth:"5px"}, 200)
-    }, function () {
-        $(".nComunes > p").css("backgroundColor", "white");
-        $(this).animate({fontSize: "18px", borderWidth:"1px"}, 200)
-    });
+        //FASE 2 PARA LAS FOTOS DE LARVAS
+        fotosLarvas[i].addEventListener("dragover", function (pEvento) {
+            pEvento.preventDefault();
 
+        });
+
+        //FASE 3 PARA LAS FOTOS DE LARVAS
+        fotosLarvas[i].addEventListener("drop", function (pEvento) {
+            //Esta instruccion es donde campuro los datos que he empezado a arrastrar en la fase 1
+            claseDestino = pEvento.target.parentElement.getAttribute("class");
+            var datos = pEvento.dataTransfer.getData("");
+            claseOrigen = document.getElementById(datos).getAttribute("class");
+
+            /****************ESTE CONSOLE ES PARA USAR COMO CONTROL**************************************** */
+            console.log(document.getElementById(datos).parentElement.classList.value);
+            //alert("clase origen: " + claseOrigen + " Clase destino: " + claseDestino);
+            if (claseDestino == claseOrigen) {
+                //De aqui recojo el objeto que comienzo a arrastrar  
+                var texto = document.createTextNode(document.getElementById(datos).textContent);
+                var elemento = document.createElement("figcaption");
+                elemento.appendChild(texto);
+                fotosLarvas[i].appendChild(elemento);
+                $("#" + datos).hide("slow");
+                $("." + claseDestino).css("backgroundColor", "greenyellow");
+                $("." + claseDestino).css("border", "solid black 5px");
+
+                numPlagas--;
+            } else {
+                console.log("No coincide las especies");
+            }
+
+            if (numPlagas == 0) {
+                document.getElementById(datos).parentElement.style.display = "none";
+                $("." + claseDestino).parent().css("float", "left");
+                $("#imgAdulto").show("slow");
+                hacerArrastrablesadultos();
+                //$("." + claseDestino).css("float", "left");
+            }
+        });
+    }
 }
+/***************AHORA HAREMOS ARRASTRABLES A LOS ADULTOS*********************************** */
+function hacerArrastrablesadultos() {
+    var imgAdultos = document.getElementById("imgAdulto").children;
+    var imgLarvas= document.getElementById("imgLarvas").children;
+    numPlagas = imgAdultos.length;
+    alert(numPlagas);
+    //AHORA TOCA HACER DRAGGABLES A LOS NOMBRES
+    for (let i = 0; i < imgAdultos.length; i++) {
+        imgAdultos[i].setAttribute("draggable", true);
+        //FASE 1
+        imgAdultos[i].addEventListener("dragstart", function (pEvento) {
+            pEvento.dataTransfer.setData("", pEvento.target.id);
+
+           // alert(imgAdultos[i].parentElement.classList);
+        });
+    }
+}
+
+    /*****************VAMOS A METERLE UN POCO DE JQUERY*********************** */
+    function fJquery() {
+
+        $(".nComunes > p").hover(function () {
+            $(this).css("backgroundColor", "red");
+            $(this).animate({ fontSize: "30px", borderWidth: "5px" }, 200)
+        }, function () {
+            $(".nComunes > p").css("backgroundColor", "white");
+            $(this).animate({ fontSize: "18px", borderWidth: "1px" }, 200)
+        });
+
+    }

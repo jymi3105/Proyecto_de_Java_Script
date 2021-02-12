@@ -120,7 +120,7 @@ function crearIndicesBD() {
 			imagenLarva: "Material/fotos_Larvas/Diprion_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
 			imgDanio:"Material/fotos_daños/diprion_danios.jpg", imgPuesta:"Material/Fotos_Nidos/diprion_puesta.png" });
 
-			almacenPlagas.put({ id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO", 
+			/*almacenPlagas.put({ id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO", 
 			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Tortrix_adulto.jpg",
 			 imagenLarva: "Material/fotos_Larvas/Tortrix_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/quercus.jpg",
 			 imgDanio:"Material/fotos_daños/tortrix_danio.jpg", imgPuesta:"Material/Fotos_Nidos/tortrix_puesta.png"});
@@ -135,7 +135,7 @@ function crearIndicesBD() {
 			imagenLarva: "Material/fotos_Larvas/Leucaspis_larva.png", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
 			imgDanio:"Material/fotos_daños/Leucaspis_danios.jpg", imgPuesta:"Material/fotos_daños/Leucaspis_danios.jpg"});
 
-			/*almacenPlagas.put({ id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO", 
+			almacenPlagas.put({ id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO", 
 			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/cerambixCerdo_adulto.jpg", 
 			imagenLarva: "Material/fotos_Larvas/cerambyx_cerdo_larva.jpg", aprendido: "no" });
 
