@@ -1,28 +1,48 @@
-.nombres{
-    max-width: 60%;
+* {
+    background-color: rgb(250, 229, 229);
+}
+
+.nombres {
+    max-width: 90%;
     min-width: 30%;
 }
 
-
-#nComunes, #nCientifico{
+#nComunes {
     border: 1px solid grey;
-    width: 45%;
-    float: left;
+    width: auto;
     margin: 20px;
     float: left;
 }
 
-#nComunes p, #nCientifico p{
+#nCientifico {
+    border: 1px solid grey;
+    width: auto;
+    float: right;
+}
+
+#nComunes p, #nCientifico p {
     margin: 10px;
-    padding: 8px;
+    padding: 10px;
     border: 1px dotted red;
 }
 
-#imgLarvas{
-    width: 40%;
+#imgLarvas {
+    width: 60%;
     float: right;
+    border: 1px solid black;
 }
-#imgAdulto{
+
+#imgPuesta, #imgDanios {
+    width: 35%;
+    float: right;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px brown;
+    background-color: rgb(223, 198, 198);
+    text-align: center;
+}
+
+#imgAdulto {
     width: 55%;
     float: right;
     border: 1px solid black;
@@ -31,9 +51,47 @@
     background-color: rgb(223, 198, 198);
 }
 
-#imgLarvas img, #imgAdulto img{
+#imgLarvas figure {
     display: inline-block;
-    max-width: 320px;
-    margin: 10px;
-    padding: 10px;
+    width: auto;
+}
+
+#imgDanios img {
+    display: inline-block;
+    width: 200px;
+}
+
+#imgLarvas figure img, #imgAdulto img, #imgDanios img {
+    display: inline-block;
+    padding: 2px;
+}
+
+.mensaje {
+    font-size: 50px;
+    font-weight: bold;
+    color: blue;
+    background-color: rgba(158, 214, 214, 0.7);
+    z-index: 10;
+    position: fixed;
+    top: 40%;
+    left: 10%;
+    right: 10%;
+    width: auto;
+    padding: 15px;
+    border: 3px dashed blueviolet;
+    text-align: center;
+    display: none;
+}
+
+#puntuacion {
+    font-size: 30px;
+    font-weight: bold;
+    border: 2px dashed red;
+    box-shadow: 10px 10px 10px brown;
+    background-color: rgba(150, 212, 150, 0.7);
+    padding: 3px;
+    position: fixed;
+    right: 2%;
+    bottom: 3%;
+    width: auto;
 }
