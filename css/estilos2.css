@@ -32,6 +32,7 @@
 .imagenes {
     float: right;
     max-width: 55%;
+    display: none;
 }
 
 #cuadroBotones {

@@ -3,6 +3,7 @@ var claseOrigen, claseDestino, numPlagas, numFallos;
 var galeria;
 
 function codigo() {
+
     //PONER COOKIE EN EL CASO DE QUE NO LA HAYA
     if (leerCookie("puntuacion") == "") {
         ponerUnaCookie("puntuacion", 0, 7);
@@ -32,8 +33,33 @@ function codigo() {
                     if (cursor)
                         console.log(cursor.value.aprendido);
                     if (cursor) {
-                        if (cursor.value.aprendido != "SI") {
+                        if (cursor.value.aprendido == "no") {
                             insertarElementoControlLista(cursor.value);
+                        }else if(cursor.value.aprendido == "SI0"){
+                            if(numAle(10)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
+                        }
+                        else if(cursor.value.aprendido == "SI1"){
+                            if(numAle(9)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
+                        }else if(cursor.value.aprendido == "SI2"){
+                            if(numAle(8)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
+                        }else if(cursor.value.aprendido == "SI3"){
+                            if(numAle(6)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
+                        }else if(cursor.value.aprendido == "SI4"){
+                            if(numAle(4)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
+                        }else if(cursor.value.aprendido == "SI"){
+                            if(numAle(4)==1){
+                                insertarElementoControlLista(cursor.value);
+                            }
                         }
                         cursor.continue(); //continue incrementa el cursor una posición
                     } else {
@@ -128,6 +154,16 @@ function insertarElementoControlLista(plaga) {
     galeria = document.getElementById("imgDanios");
     galeria.appendChild(imagenDanio);
     galeria.style.display = "none";
+
+    //AHORA INSERTAMOS LOS TRATAMIENTOS FITOSANITARIOS 
+    htmlTexto = plaga.tFitosanitario.toUpperCase();
+    listaItem = document.createElement("p");
+    listaItem.setAttribute("class", plaga.id);
+    listaItem.setAttribute("id", plaga.id + "tf");
+    listaItem.textContent = htmlTexto;
+    lista = document.getElementById("tFitosanitario");
+    lista.appendChild(listaItem);
+
 }
 
 function desordena() {
@@ -144,6 +180,20 @@ function desordena() {
         nodobody[i].parentNode.appendChild(miArray[num]);
         miArray.splice(num, 1);
     }
+
+    var nodobodytf = document.getElementById("tFitosanitario").getElementsByTagName("p");
+    //AQUI METO TODOS LOS RESULTADOS DE LA BUSQUEDA
+    var miArraytf = [];
+    for (let i = 0; i < nodobodytf.length; i++) {
+        miArraytf.push(nodobodytf[i]);
+    }
+
+    //y LUEGO LOS SACO DEL ARRAY Y LOS METO EN EL NODO DECLARADO Y HACIENDOLES DESAPARECER DEL ARRAY
+    for (let i = 0; i < nodobodytf.length; i++) {
+        let num = Math.floor(Math.random() * miArraytf.length);
+        nodobodytf[i].parentNode.appendChild(miArraytf[num]);
+        miArraytf.splice(num, 1);
+    }
 }
 //FUNCION PARA ACTIVAR EL DRAG AND DROP
 function hacerArrastrables() {
@@ -154,9 +204,11 @@ function hacerArrastrables() {
     //console.log("numero de plagas: " + numPlagas);
 
     var nombresComunes = document.getElementById("nComunes").children;
+
     //AHORA TOCA HACER DRAGGABLES A LOS NOMBRES
     for (let i = 0; i < nombresComunes.length; i++) {
         nombresComunes[i].setAttribute("draggable", true);
+
         //FASE 1
         nombresComunes[i].addEventListener("dragstart", function (pEvento) {
             pEvento.dataTransfer.setData("", pEvento.target.id);
@@ -165,6 +217,7 @@ function hacerArrastrables() {
             //clasePadreOrigen = pEvento.target.parentElement.getAttribute("class");
 
         });
+
         //FASE 2
         parrafosNcien[i].addEventListener("dragover", function (pEvento) {
             pEvento.preventDefault();
@@ -173,7 +226,7 @@ function hacerArrastrables() {
                 return '{fontSize: "15px", borderWidth:"1px"}, 200)';
 
             });
-            $(parrafosNcien[i]).animate({ fontSize: "30px", borderWidth: "5px" }, 200);
+            $(parrafosNcien[i]).animate({ fontSize: "20px", borderWidth: "5px" }, 200);
         });
 
         //FASE 3
@@ -194,11 +247,12 @@ function hacerArrastrables() {
                 //Lo hago desaparecer, porque cuando complete esta parte, las quiero volver a usar
                 $("#" + datos).hide("slow");
                 numPlagas--;
-
+                cambiarIndexed(claseDestino, "SI0");
             } else {
+                cambiarIndexed(claseDestino, "no");
                 numFallos++;
                 modificarCookie("puntuacion", -2);
-                if (numFallos > 10) {
+                if (numFallos > 2) {
                     redireccionar();
                 } else {
                     mensaje("INCORRECTO!! Has fallado " + numFallos + " veces", 800, "red");
@@ -209,13 +263,13 @@ function hacerArrastrables() {
                 for (let j = 0; j < nombresComunes.length; j++) {
                     //console.log("N plagas: " + numPlagas);
                     /**MEDIANTE JQUERY */
-                    $("#nComunes > p:eq(" + j + ")").show(2500);
+                    $("#nComunes > p:eq(" + j + ")").show(2000);
                     //nombresComunes[j].style.display = "block";
                 }
                 //VUELVO A DAR VALOR AL NUMERO DE PLAGAS PARA COMENZAR DE NUEVO
 
                 $(".nCientifico").hide("slow");
-                $("#imgLarvas").delay(3500).show(4000, function () {
+                $("#imgLarvas").delay(1500).show(2000, function () {
                     mensajeImg("Ahora coloca los nombres sobre las imagenes correctas", "De izquierda", "A derecha", 2000, "green");
                 });
                 //TENGO QUE DARLE VALOR DESPUES DE QUE APAREZCAN
@@ -264,10 +318,12 @@ function hacerArrastrablesImg() {
                     modificarCookie("puntuacion", 1);
                     mensaje("Buen trabajo", 500, "blue");
                     numPlagas--;
+                    cambiarIndexed(claseDestino, "SI1");
                 } else {
+                    cambiarIndexed(claseDestino, "SI0");
                     numFallos++;
                     modificarCookie("puntuacion", -2);
-                    if (numFallos > 10) {
+                    if (numFallos > 3) {
                         redireccionar();
                     } else {
                         mensaje("INCORRECTO!! Has fallado " + numFallos + " veces", 800, "red");
@@ -281,11 +337,12 @@ function hacerArrastrablesImg() {
                     mensaje("Buen trabajo", 500, "green");
                     numPlagas--;
                     //console.log(fotosLarvas[i].innerHTML);
-                    // cambiarIndexed(claseDestino);
+                    cambiarIndexed(claseDestino, "SI2");
                 } else {
+                    cambiarIndexed(claseDestino, "SI1");
                     numFallos++;
                     modificarCookie("puntuacion", -2);
-                    if (numFallos > 10) {
+                    if (numFallos > 5) {
                         redireccionar();
                     } else {
                         mensaje("INCORRECTO!! Has fallado " + numFallos + " veces", 800, "red");
@@ -299,15 +356,17 @@ function hacerArrastrablesImg() {
                     modificarCookie("puntuacion", 1);
                     mensaje("Buen trabajo", 500, "blue");
                     numPlagas--;
+                    cambiarIndexed(claseDestino, "SI3");
                 } else {
+                    cambiarIndexed(claseDestino, "SI2");
                     numFallos++;
                     modificarCookie("puntuacion", -2);
-                    if (numFallos > 10) {
+                    if (numFallos > 7) {
                         redireccionar();
                     } else {
                         mensaje("INCORRECTO!! Has fallado " + numFallos + " veces", 800, "red");
                     }
-                } 
+                }
             } else if (document.getElementById(datos).parentElement.classList.value == "imgDanios") {
                 if (claseDestino == claseOrigen) {
                     document.getElementById(datos).style.border = "none";
@@ -315,7 +374,34 @@ function hacerArrastrablesImg() {
                     modificarCookie("puntuacion", 1);
                     mensaje("Buen trabajo", 500, "blue");
                     numPlagas--;
+                    cambiarIndexed(claseDestino, "SI4");
                 } else {
+                    cambiarIndexed(claseDestino, "SI3");
+                    numFallos++;
+                    modificarCookie("puntuacion", -2);
+                    if (numFallos > 9) {
+                        redireccionar();
+                    } else {
+                        mensaje("INCORRECTO!! Has fallado " + numFallos + " veces", 800, "red");
+                    }
+                }
+            } else if (document.getElementById(datos).parentElement.classList.value == "tFitosanitario") {
+
+                if (claseDestino == claseOrigen) {
+                    //document.getElementById(datos).style.display = "none";
+                    //fotosLarvas[i].style.display="none";
+                    
+                    $("." + claseDestino).hide(1000);
+                    modificarCookie("puntuacion", 1);
+                    mensaje("Buen trabajo", 500, "blue");
+                    numPlagas--;
+                    console.log("clase origen: " + claseOrigen + " num: " + numPlagas + ", " + fotosLarvas[i].innerHTML);
+                    cambiarIndexed(claseDestino, "SI");
+                    if (numPlagas == 0) {
+                        redireccionarFin();
+                    }
+                } else {
+                    cambiarIndexed(claseDestino, "SI4");
                     numFallos++;
                     modificarCookie("puntuacion", -2);
                     if (numFallos > 10) {
@@ -325,27 +411,44 @@ function hacerArrastrablesImg() {
                     }
                 }
             }
-                //UNA VEZ QUE HEMOS ACABADO CON LAS PLAGAS, UNA PARTE LA HACEMOS DESAPARECER Y OTRA QUE APAREZCA
-                if (numPlagas == 0) {
-                    console.log("clasePadre:" + clasePadre);
-                    if (clasePadre == "nComunes") {
-                        document.getElementById(datos).parentElement.style.display = "none";
-                        $("." + claseDestino).parent().css("float", "left");
-                        $("#imgAdulto").show("slow");
-                        hacerArrastrablesadultos();
-                    } else if (clasePadre == "imgAdulto") {
-                        document.getElementsByClassName(clasePadre)[0].style.display = "none";
-                        $("#imgPuesta").show("slow").css("float", "right");
-                        hacerArrastrablesPuestas();
-                    } else if (clasePadre == "imgPuesta") {
-                        document.getElementsByClassName(clasePadre)[0].style.display = "none";
-                        $("#imgDanios").show("slow").css("float", "right");
-                        hacerArrastrablesDanios();
-                    }
+            //UNA VEZ QUE HEMOS ACABADO CON LAS PLAGAS, UNA PARTE LA HACEMOS DESAPARECER Y OTRA QUE APAREZCA
+            if (numPlagas == 0) {
+                //console.log("clasePadre:" + clasePadre);
+                if (clasePadre == "nComunes") {
+                    document.getElementById(datos).parentElement.style.display = "none";
+                    $("." + claseDestino).parent().css("float", "left");
+                    $("#imgAdulto").css("float", "right");
+                    $("#imgAdulto").delay(1000).show(3000, function () {
+                        mensajeImgL("Ahora coloca las fotos", "De derecha", "A izquierda", 2000, "green");
+                    });
+                    hacerArrastrablesadultos();
+                } else if (clasePadre == "imgAdulto") {
+                    document.getElementsByClassName(clasePadre)[0].style.display = "none";
+                    $("#imgPuesta").show("slow").css("float", "right");
+                    $("#imgPuesta").delay(1000).show(3000, function () {
+                        mensajeImgL("Ahora coloca las fotos de sus puestas", "De derecha", "A izquierda", 2000, "purple");
+                    });
+                    hacerArrastrablesPuestas();
+                } else if (clasePadre == "imgPuesta") {
+                    document.getElementsByClassName(clasePadre)[0].style.display = "none";
+                    $("#imgDanios").show("slow").css("float", "right");
+                    $("#imgDanios").delay(1000).show(3000, function () {
+                        mensajeImgL("Ahora coloca las fotos de los daños", "De derecha", "A izquierda", 2000, "purple");
+                    });
+                    hacerArrastrablesDanios();
+                } else if (clasePadre == "imgDanios") {
+                    document.getElementsByClassName(clasePadre)[0].style.display = "none";
+                    $("#tFitosanitario").show("slow").css("float", "right");
+                    $("#tFitosanitario").delay(1000).show(3000, function () {
+                        mensajeImgL("Ahora coloca los tratamientos fitosanitarios", "De derecha", "A izquierda", 1000, "purple");
+                    });
+                    hacerArrastrablesTFito();
 
-                    //$("." + claseDestino).css("float", "left");
                 }
-            });
+
+                //$("." + claseDestino).css("float", "left");
+            }
+        });
     }
 }
 /***************AHORA HAREMOS ARRASTRABLES A LOS ADULTOS*********************************** */
@@ -353,13 +456,13 @@ function hacerArrastrablesadultos() {
     var imgAdultos = document.getElementById("imgAdulto").children;
     //var imgLarvas = document.getElementById("imgLarvas").children;
     numPlagas = imgAdultos.length;
-    // alert(numPlagas);
-    //AHORA TOCA HACER DRAGGABLES A LOS NOMBRES
+  
     for (let i = 0; i < imgAdultos.length; i++) {
         imgAdultos[i].setAttribute("draggable", true);
         //FASE 1
         imgAdultos[i].addEventListener("dragstart", function (pEvento) {
             pEvento.dataTransfer.setData("", pEvento.target.id);
+            console.log(pEvento.target.id);
 
             // alert(imgAdultos[i].parentElement.classList);
         });
@@ -385,7 +488,6 @@ function hacerArrastrablesDanios() {
     var imgDanios = document.getElementById("imgDanios").children;
     //var imgLarvas = document.getElementById("imgLarvas").children;
     numPlagas = imgDanios.length;
-    // alert(numPlagas);
     //AHORA TOCA HACER DRAGGABLES A LAS IMAGENES
     for (let i = 0; i < imgDanios.length; i++) {
         imgDanios[i].setAttribute("draggable", true);
@@ -393,14 +495,29 @@ function hacerArrastrablesDanios() {
         imgDanios[i].addEventListener("dragstart", function (pEvento) {
             pEvento.dataTransfer.setData("", pEvento.target.id);
 
-           // console.log(imgDanios[i].parentElement.classList);
+            // console.log(imgDanios[i].parentElement.classList);
+        });
+    }
+}
+
+/*************AHORA TOCA HACER ARRASTRABLES LOS TRATAMIENTOS FITOSANITARIOS********************************* */
+function hacerArrastrablesTFito() {
+    var nombresTFito = document.getElementById("tFitosanitario").children;
+    numPlagas = nombresTFito.length;
+    for (let i = 0; i < nombresTFito.length; i++) {
+
+        nombresTFito[i].setAttribute("draggable", true);
+
+        nombresTFito[i].addEventListener("dragstart", function (pEvento) {
+            pEvento.dataTransfer.setData("", pEvento.target.id);
+            //console.log("fito: " + pEvento.target.id);
         });
     }
 }
 
 
 /*****************MODIFICO EL INDEXED******************************************************** */
-function cambiarIndexed(id) {
+function cambiarIndexed(id, arg) {
     var peticion, bd, transaccion, almacen;
     var nComun, nCientifico, oCuarentena, hospedante, aprendido, tFitosanitario, imagenAdulto,
         imagenHospedante, imagenLarva, imgDanio, imgPuesta;
@@ -437,7 +554,7 @@ function cambiarIndexed(id) {
                 nuevaPlaga.nComun = nComun;
                 nuevaPlaga.oCuarentena = oCuarentena;
                 nuevaPlaga.hospedante = hospedante;
-                nuevaPlaga.aprendido = "SI";
+                nuevaPlaga.aprendido = arg;
                 nuevaPlaga.tFitosanitario = tFitosanitario;
                 nuevaPlaga.imagenAdulto = imagenAdulto;
                 nuevaPlaga.imagenHospedante = imagenHospedante;
@@ -464,26 +581,29 @@ function cambiarIndexed(id) {
 /*****************VAMOS A METERLE UN POCO DE JQUERY*********************** */
 function fJquery() {
 
-    $(".nComunes > p").hover(function () {
+    $(".nComunes > p, .tFitosanitario > p").hover(function () {
         $(this).css("backgroundColor", "red");
         $(this).animate({ fontSize: "22px", borderWidth: "5px" }, 200)
     }, function () {
-        $(".nComunes > p").css("backgroundColor", "white");
+        $(".nComunes > p, .tFitosanitario > p").css("backgroundColor", "white");
         $(this).animate({ fontSize: "16px", borderWidth: "1px" }, 200)
     });
 
 }
 
 function mensaje(mensaje, tiempo, color) {
+    $(".men").show();
     $(".mensaje").css("color", color);
     $(".mensaje").text(mensaje);
     $(".mensaje").fadeIn(tiempo, function () {
         $(".mensaje").animate({ fontSize: "75px" }, tiempo / 2);
         $(".mensaje").animate({ fontSize: "50px" }, tiempo / 2);
-        $(".mensaje").fadeOut(tiempo)
+        $(".mensaje").fadeOut(tiempo);
+        $(".men").hide();
     });
 }
 function mensajeIni(mensajeP, mensaje1, mensaje2, tiempo, color) {
+    $(".men").show();
     $(".mensaje").css("color", color);
     $(".mensaje").text(mensajeP);
     $(".mensaje").fadeIn(tiempo * 2, function () {
@@ -494,14 +614,39 @@ function mensajeIni(mensajeP, mensaje1, mensaje2, tiempo, color) {
         $(".mensaje").animate({ left: "60%", right: "10%", top: "10%" }, tiempo / 2);
         $(".mensaje").fadeOut(tiempo * 2);
         //VUELVE A SU SITIO
-        $(".mensaje").animate({ left: "10%", right: "10%", top: "40%" }, tiempo / 2);
+        $(".mensaje").animate({ left: "10%", right: "10%", top: "40%" }, tiempo / 2, function () {
+            $(".men").hide();
+        });
     });
 }
+
+function mensajeImgL(mensajeP, mensaje1, mensaje2, tiempo, color) {
+    $(".men").show();
+    $(".mensaje").css("color", color);
+    $(".mensaje").text(mensajeP);
+    $(".mensaje").fadeIn(tiempo * 2, function () {
+        $(".mensaje").text(mensaje1);
+        $(".mensaje").animate({ left: "65%", right: "5%", top: "10%" }, tiempo, function () {
+            $(".mensaje").text(mensaje2);
+        });
+        $(".mensaje").animate({ left: "5%", right: "65%", top: "10%" }, tiempo / 2);
+        $(".mensaje").fadeOut(tiempo * 2);
+        //VUELVE A SU SITIO
+        $(".mensaje").animate({ left: "10%", right: "10%", top: "40%" }, tiempo / 4, function () {
+            $(".men").hide();
+        });
+    });
+}
+
+
 function mensajeImg(mensajeP, mensaje1, mensaje2, tiempo, color) {
+    $(".men").show();
     $(".mensaje").css("color", color).text(mensajeP).fadeIn(tiempo * 2, function () {
         $(".mensaje").text(mensaje1).animate({ left: "5%", right: "65%", top: "10%" }, tiempo, function () {
             $(".mensaje").text(mensaje2);
-        }).animate({ left: "60%", right: "10%", top: "10%" }, tiempo / 2).fadeOut(tiempo * 2).animate({ left: "10%", right: "10%", top: "40%" }, tiempo / 2);
+        }).animate({ left: "60%", right: "10%", top: "10%" }, tiempo / 2).fadeOut(tiempo * 2).animate({ left: "10%", right: "10%", top: "40%" }, tiempo / 2, function () {
+            $(".men").hide();
+        });
     });
 }
 
@@ -517,10 +662,24 @@ function agrandaImagenes() {
 
 function redireccionar() {
     var tiempo = 1200;
+    $(".men").show(tiempo);
     $(".mensaje").css("color", "red");
     $(".mensaje").text("Has fallado muchas veces, necesitaras estudia más.");
     $(".mensaje").fadeIn(tiempo, function () {
-        $(".mensaje").animate({ fontSize: "60px" }, tiempo / 2);
+        $(".mensaje").animate({ fontSize: "60px" }, tiempo / 2).animate({ fontSize: "50px" }, tiempo / 2).fadeOut(tiempo / 2, function () {
+            window.location = "index_miProyecto.html";
+        });
+        $("*").hide(tiempo*2);
+    });
+}
+
+function redireccionarFin() {
+    var tiempo = 2000;
+    $(".men").show(tiempo);
+    $(".mensaje").css("color", "red");
+    $(".mensaje").text("Has finalizado con exito!!");
+    $(".mensaje").fadeIn(tiempo, function () {
+        $(".mensaje").animate({ fontSize: "100px" }, tiempo / 2);
         $(".mensaje").animate({ fontSize: "50px" }, tiempo / 2);
         $("*").hide(tiempo * 4);
         $(".mensaje").fadeOut(tiempo / 2, function () {
@@ -545,6 +704,9 @@ function ponerUnaCookie(clave, valor, dias = 0) {
     document.cookie = miCookie;
 }
 
+
+/*************************FUNCIONES PARA TRABAJAR  CON LAS COOKIES  ***************************** */
+
 function leerCookie(clave) {
     var resultado = "";
     //Como el formato siempre tiene que llevar entre la clave y el valor, un =, pues ta se lo añadimos aqui
@@ -566,4 +728,9 @@ function leerCookie(clave) {
 function modificarCookie(cookie, num) {
     document.cookie = cookie + "=" + (parseInt(leerCookie(cookie)) + num);
     document.getElementById("puntuacion").innerText = "Puntuacion: " + leerCookie("puntuacion");
+}
+
+function numAle(i) {
+    var ale=Math.floor(Math.random()*i);
+    return ale;    
 }

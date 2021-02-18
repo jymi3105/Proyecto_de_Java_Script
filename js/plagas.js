@@ -1,10 +1,10 @@
 function codigo() {
 	var peticion, bd, transaccion, almacen;
-	
+
 	crearIndicesBD();
-	function refrescarListaLibros() {
+	function refrescarListaPlagas() {
 		if (window.indexedDB) {
-			
+
 			peticion = window.indexedDB.open("plagasBD");
 
 			peticion.onsuccess = function (evento) {
@@ -50,7 +50,6 @@ function codigo() {
 
 
 	function insertarElementoControlLista(plagas) {
-		//var htmlTexto = libro.isbn + "  <----->  " + libro.titulo;
 		var htmlTexto = plagas.nComun;
 		var listaItem = document.createElement("option");
 		listaItem.setAttribute("value", plagas.id);
@@ -64,14 +63,14 @@ function codigo() {
 			var transaccionEvento = bd.transaction(bd.objectStoreNames, "readwrite");
 			var almacenEvento = transaccionEvento.objectStore("plagas");
 			var registroEvento = almacenEvento.get(parseInt(id));
-			var botones=document.getElementsByClassName("button");
-			var imagenes=document.getElementsByClassName("imagenes")[0];
-			botones[0].style.display="block";
-			botones[1].style.display="block";
+			var botones = document.getElementsByClassName("button");
+			var imagenes = document.getElementsByClassName("imagenes")[0];
+			botones[0].style.display = "block";
+			botones[1].style.display = "block";
 			function hacerVisible(params) {
-				document.getElementById("modal_container").style.opacity="1";
+				document.getElementById("modal_container").style.opacity = "1";
 			}
-			imagenes.style.display="block";
+			imagenes.style.display = "block";
 
 			registroEvento.onsuccess = function (evento) {
 				document.getElementById("id").value = registroEvento.result.id;
@@ -89,7 +88,7 @@ function codigo() {
 		}
 	}
 
-	document.getElementById("botonCargar").onclick = refrescarListaLibros;
+	document.getElementById("botonCargar").onclick = refrescarListaPlagas;
 }
 
 function crearIndicesBD() {
@@ -100,50 +99,66 @@ function crearIndicesBD() {
 		peticion = window.indexedDB.open("plagasBD", 1);
 
 		peticion.onsuccess = function (evento) {
-		
+
 			bd = peticion.result;
 			var transaccion = bd.transaction(bd.objectStoreNames, "readwrite");
 
 			almacenPlagas = transaccion.objectStore("plagas");
-			almacenPlagas.put({ id: 1, nComun: "blanquilla del chopo", nCientifico: "Leucoma salicis", oCuarentena: "NO", 
-			hospedante: "Populus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Leucoma_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Leucoma_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/chopo.jpg",
-			imgDanio:"Material/fotos_daños/leucoma_danios.png", imgPuesta:"Material/Fotos_Nidos/leucoma_puesta.jpg"});
+			almacenPlagas.put({
+				id: 1, nComun: "blanquilla del chopo", nCientifico: "Leucoma salicis", oCuarentena: "NO",
+				hospedante: "Populus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Leucoma_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Leucoma_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
+				imgDanio: "Material/fotos_daños/leucoma_danios.png", imgPuesta: "Material/Fotos_Nidos/leucoma_puesta.jpg"
+			});
 
-			almacenPlagas.put({ id: 2, nComun: "longicornio del pino", nCientifico: "Monochamus galloprovincialis", 
-			oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Monochamus_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Monochamus_Larvas.png", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
-			imgDanio:"Material/fotos_daños/Monochamus_danios.jpg", imgPuesta:"Material/Fotos_Nidos/MonochamusHuevos.jpg" });
+			almacenPlagas.put({
+				id: 2, nComun: "longicornio del pino", nCientifico: "Monochamus galloprovincialis",
+				oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Monochamus_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Monochamus_Larvas.png", aprendido: "no", imagenHospedante: "Material/fotos_arboles/pinos.jpg",
+				imgDanio: "Material/fotos_daños/Monochamus_danios.jpg", imgPuesta: "Material/Fotos_Nidos/MonochamusHuevos.jpg"
+			});
 
-			almacenPlagas.put({ id: 3, nComun: "mosca sierra del pino", nCientifico: "Diprion pini", 
-			oCuarentena: "NO", hospedante: "Pinus", tFitosanitario: " BENFLURALINA 18%", imagenAdulto: "Material/Fotos_Adultos/diprion_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Diprion_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
-			imgDanio:"Material/fotos_daños/diprion_danios.jpg", imgPuesta:"Material/Fotos_Nidos/diprion_puesta.png" });
+			almacenPlagas.put({
+				id: 3, nComun: "mosca sierra del pino", nCientifico: "Diprion pini",
+				oCuarentena: "NO", hospedante: "Pinus", tFitosanitario: " BENFLURALINA 18%", imagenAdulto: "Material/Fotos_Adultos/diprion_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Diprion_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/pinos.jpg",
+				imgDanio: "Material/fotos_daños/diprion_danios.jpg", imgPuesta: "Material/Fotos_Nidos/diprion_puesta.png"
+			});
 
-			/*almacenPlagas.put({ id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO", 
-			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Tortrix_adulto.jpg",
-			 imagenLarva: "Material/fotos_Larvas/Tortrix_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/quercus.jpg",
-			 imgDanio:"Material/fotos_daños/tortrix_danio.jpg", imgPuesta:"Material/Fotos_Nidos/tortrix_puesta.png"});
+			almacenPlagas.put({
+				id: 4, nComun: "piral del roble", nCientifico: "Tortrix viridiana", oCuarentena: "NO",
+				hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/Tortrix_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Tortrix_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/quercus.jpg",
+				imgDanio: "Material/fotos_daños/tortrix_danio.jpg", imgPuesta: "Material/Fotos_Nidos/tortrix_puesta.png"
+			});
 
-			almacenPlagas.put({ id: 5, nComun: "lagarta peluda", nCientifico: "Limantria dispar", oCuarentena: "NO", 
-			hospedante: "Quercus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/limantria_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/limantria_larva.jpg", aprendido: "no", imagenHospedante:"Material/fotos_arboles/quercus.jpg",
-			imgDanio:"Material/fotos_daños/Lymantria_danios.jpg", imgPuesta:"Material/Fotos_Nidos/limantria_puesta.jpg"});
 
-			almacenPlagas.put({ id: 6, nComun: "cochinilla de los pinos", nCientifico: "Leucaspis pini", oCuarentena: "NO", 
-			hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/LeucaspisPini_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Leucaspis_larva.png", aprendido: "no", imagenHospedante:"Material/fotos_arboles/pinos.jpg",
-			imgDanio:"Material/fotos_daños/Leucaspis_danios.jpg", imgPuesta:"Material/fotos_daños/Leucaspis_danios.jpg"});
+			almacenPlagas.put({
+				id: 5, nComun: "lagarta peluda", nCientifico: "Limantria dispar", oCuarentena: "NO",
+				hospedante: "Quercus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/limantria_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/limantria_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/quercus.jpg",
+				imgDanio: "Material/fotos_daños/Lymantria_danios.jpg", imgPuesta: "Material/Fotos_Nidos/limantria_puesta.jpg"
+			});
 
-			almacenPlagas.put({ id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO", 
-			hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/cerambixCerdo_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/cerambyx_cerdo_larva.jpg", aprendido: "no" });
+			almacenPlagas.put({
+				id: 6, nComun: "cochinilla de los pinos", nCientifico: "Leucaspis pini", oCuarentena: "NO",
+				hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/LeucaspisPini_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Leucaspis_larva.png", aprendido: "no", imagenHospedante: "Material/fotos_arboles/pinos.jpg",
+				imgDanio: "Material/fotos_daños/Leucaspis_danios.jpg", imgPuesta: "Material/fotos_daños/Leucaspis_danios.jpg"
+			});
+
+			almacenPlagas.put({
+				id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO",
+				hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/cerambixCerdo_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/cerambyx_cerdo_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
+				imgDanio: "Material/fotos_daños/cerambix_danios.jpg", imgPuesta: "Material/Fotos_Nidos/cerambix_puesta.jpg" });
 
 			almacenPlagas.put({ id: 8, nComun: "mariposa lagarta cola parda", nCientifico: "Euproctis chrysorrhoea", oCuarentena: "NO", 
 			hospedante: "Salix", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/Euproctis chrysorrhoea_adulto.jpg",
-			 imagenLarva: "Material/fotos_Larvas/Euproctis chrysorrhoea_larva.jpg", aprendido: "no" });
+			 imagenLarva: "Material/fotos_Larvas/Euproctis chrysorrhoea_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
+				imgDanio: "Material/fotos_daños/euproctis_danios.jpg", imgPuesta: "Material/Fotos_Nidos/euproctis_puesta.png" });
 
-			almacenPlagas.put({ id: 9, nComun: "procesionaria del pino", nCientifico: "Thaumetopoea pityocampa", oCuarentena: "NO", 
+			/*almacenPlagas.put({ id: 9, nComun: "procesionaria del pino", nCientifico: "Thaumetopoea pityocampa", oCuarentena: "NO", 
 			hospedante: "Pinus", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/procesionariaAdulto.jpg", 
 			imagenLarva: "Material/fotos_Larvas/procesionaria1.png", aprendido: "no" });
 			
@@ -183,9 +198,9 @@ function crearIndicesBD() {
 
 window.onload = codigo;
 function hacerVisible(params) {
-	document.getElementById("modal_container").style.opacity="1";
+	document.getElementById("modal_container").style.opacity = "1";
 	setTimeout(function () {
-		document.getElementById("modal_container").style.opacity="0";
-	}, 1000);
+		document.getElementById("modal_container").style.opacity = "0";
+	}, 4000);
 }
 
