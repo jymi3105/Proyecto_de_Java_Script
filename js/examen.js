@@ -34,30 +34,32 @@ function codigo() {
                         console.log(cursor.value.aprendido);
                     if (cursor) {
                         if (cursor.value.aprendido == "no") {
-                            insertarElementoControlLista(cursor.value);
+                            if(numAle(6)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
                         }else if(cursor.value.aprendido == "SI0"){
-                            if(numAle(10)!=1){
+                            if(numAle(6)!=1){
                                 insertarElementoControlLista(cursor.value);
                             }
                         }
                         else if(cursor.value.aprendido == "SI1"){
-                            if(numAle(9)!=1){
+                            if(numAle(5)!=1){
                                 insertarElementoControlLista(cursor.value);
                             }
                         }else if(cursor.value.aprendido == "SI2"){
-                            if(numAle(8)!=1){
-                                insertarElementoControlLista(cursor.value);
-                            }
-                        }else if(cursor.value.aprendido == "SI3"){
-                            if(numAle(6)!=1){
-                                insertarElementoControlLista(cursor.value);
-                            }
-                        }else if(cursor.value.aprendido == "SI4"){
                             if(numAle(4)!=1){
                                 insertarElementoControlLista(cursor.value);
                             }
+                        }else if(cursor.value.aprendido == "SI3"){
+                            if(numAle(3)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
+                        }else if(cursor.value.aprendido == "SI4"){
+                            if(numAle(2)!=1){
+                                insertarElementoControlLista(cursor.value);
+                            }
                         }else if(cursor.value.aprendido == "SI"){
-                            if(numAle(4)==1){
+                            if(numAle(2)==1){
                                 insertarElementoControlLista(cursor.value);
                             }
                         }
@@ -76,7 +78,6 @@ function codigo() {
             peticion.onerror = function (evento) {
                 alert("No se ha creado la base de datos: " + event.target.errorCode);
             };
-
 
             peticion.onupgradeneeded = function (evento) {
                 console.log("Upgradeneeded");
@@ -198,11 +199,7 @@ function desordena() {
 //FUNCION PARA ACTIVAR EL DRAG AND DROP
 function hacerArrastrables() {
     var parrafosNcien = document.getElementsByClassName("nCientifico")[0].children;
-
-
     numPlagas = parrafosNcien.length;
-    //console.log("numero de plagas: " + numPlagas);
-
     var nombresComunes = document.getElementById("nComunes").children;
 
     //AHORA TOCA HACER DRAGGABLES A LOS NOMBRES
@@ -242,7 +239,7 @@ function hacerArrastrables() {
                 //De aqui recojo el objeto que comienzo a arrastrar  
                 parrafosNcien[i].appendChild(document.createTextNode(" -> " + document.getElementById(datos).textContent));
                 modificarCookie("puntuacion", 1);
-                mensaje("Buen trabajo", 600, "blue");
+                mensaje("Buen trabajo", 800, "blue");
                 $(parrafosNcien[i]).css("backgroundColor", "greenyellow");
                 //Lo hago desaparecer, porque cuando complete esta parte, las quiero volver a usar
                 $("#" + datos).hide("slow");
@@ -305,7 +302,6 @@ function hacerArrastrablesImg() {
 
             if (document.getElementById(datos).parentElement.classList.value == "nComunes") {
                 if (claseDestino == claseOrigen) {
-                    //cambiarIndexed(claseDestino);
                     //De aqui recojo el objeto que comienzo a arrastrar  
                     var texto = document.createTextNode(document.getElementById(datos).textContent);
                     var elemento = document.createElement("figcaption");
@@ -314,9 +310,8 @@ function hacerArrastrablesImg() {
                     fotosLarvas[i].insertBefore(elemento, fotosLarvas[i].childNodes[0]);
                     $("#" + datos).hide("slow");
                     $("." + claseDestino).css("backgroundColor", "greenyellow");
-                    //$("." + claseDestino).css("border", "solid black 5px");
                     modificarCookie("puntuacion", 1);
-                    mensaje("Buen trabajo", 500, "blue");
+                    mensaje("Buen trabajo", 800, "blue");
                     numPlagas--;
                     cambiarIndexed(claseDestino, "SI1");
                 } else {
@@ -334,7 +329,7 @@ function hacerArrastrablesImg() {
                     document.getElementById(datos).style.border = "none";
                     fotosLarvas[i].appendChild(document.getElementById(datos));
                     modificarCookie("puntuacion", 1);
-                    mensaje("Buen trabajo", 500, "green");
+                    mensaje("Buen trabajo", 800, "green");
                     numPlagas--;
                     //console.log(fotosLarvas[i].innerHTML);
                     cambiarIndexed(claseDestino, "SI2");
@@ -354,7 +349,7 @@ function hacerArrastrablesImg() {
                     document.getElementById(datos).style.border = "none";
                     fotosLarvas[i].appendChild(document.getElementById(datos));
                     modificarCookie("puntuacion", 1);
-                    mensaje("Buen trabajo", 500, "blue");
+                    mensaje("Buen trabajo", 800, "blue");
                     numPlagas--;
                     cambiarIndexed(claseDestino, "SI3");
                 } else {
@@ -372,7 +367,7 @@ function hacerArrastrablesImg() {
                     document.getElementById(datos).style.border = "none";
                     fotosLarvas[i].appendChild(document.getElementById(datos));
                     modificarCookie("puntuacion", 1);
-                    mensaje("Buen trabajo", 500, "blue");
+                    mensaje("Buen trabajo", 800, "blue");
                     numPlagas--;
                     cambiarIndexed(claseDestino, "SI4");
                 } else {
@@ -388,12 +383,9 @@ function hacerArrastrablesImg() {
             } else if (document.getElementById(datos).parentElement.classList.value == "tFitosanitario") {
 
                 if (claseDestino == claseOrigen) {
-                    //document.getElementById(datos).style.display = "none";
-                    //fotosLarvas[i].style.display="none";
-                    
                     $("." + claseDestino).hide(1000);
                     modificarCookie("puntuacion", 1);
-                    mensaje("Buen trabajo", 500, "blue");
+                    mensaje("Buen trabajo", 800, "blue");
                     numPlagas--;
                     console.log("clase origen: " + claseOrigen + " num: " + numPlagas + ", " + fotosLarvas[i].innerHTML);
                     cambiarIndexed(claseDestino, "SI");
@@ -418,35 +410,33 @@ function hacerArrastrablesImg() {
                     document.getElementById(datos).parentElement.style.display = "none";
                     $("." + claseDestino).parent().css("float", "left");
                     $("#imgAdulto").css("float", "right");
-                    $("#imgAdulto").delay(1000).show(3000, function () {
-                        mensajeImgL("Ahora coloca las fotos", "De derecha", "A izquierda", 2000, "green");
+                    $("#imgAdulto").delay(1000).show(2500, function () {
+                        mensajeImgL("Ahora coloca las fotos de los adultos sobre las larvas", "De derecha", "A izquierda", 2000, "green");
                     });
                     hacerArrastrablesadultos();
                 } else if (clasePadre == "imgAdulto") {
                     document.getElementsByClassName(clasePadre)[0].style.display = "none";
                     $("#imgPuesta").show("slow").css("float", "right");
-                    $("#imgPuesta").delay(1000).show(3000, function () {
+                    $("#imgPuesta").delay(1000).show(2500, function () {
                         mensajeImgL("Ahora coloca las fotos de sus puestas", "De derecha", "A izquierda", 2000, "purple");
                     });
                     hacerArrastrablesPuestas();
                 } else if (clasePadre == "imgPuesta") {
                     document.getElementsByClassName(clasePadre)[0].style.display = "none";
                     $("#imgDanios").show("slow").css("float", "right");
-                    $("#imgDanios").delay(1000).show(3000, function () {
+                    $("#imgDanios").delay(1000).show(2500, function () {
                         mensajeImgL("Ahora coloca las fotos de los daños", "De derecha", "A izquierda", 2000, "purple");
                     });
                     hacerArrastrablesDanios();
                 } else if (clasePadre == "imgDanios") {
                     document.getElementsByClassName(clasePadre)[0].style.display = "none";
                     $("#tFitosanitario").show("slow").css("float", "right");
-                    $("#tFitosanitario").delay(1000).show(3000, function () {
+                    $("#tFitosanitario").delay(1000).show(2500, function () {
                         mensajeImgL("Ahora coloca los tratamientos fitosanitarios", "De derecha", "A izquierda", 1000, "purple");
                     });
                     hacerArrastrablesTFito();
 
                 }
-
-                //$("." + claseDestino).css("float", "left");
             }
         });
     }
@@ -660,6 +650,8 @@ function agrandaImagenes() {
     });
 }
 
+/*************** REDIRECCIONAMOS EN CASO DE MUCHOS FALLOS ***************************************** */
+
 function redireccionar() {
     var tiempo = 1200;
     $(".men").show(tiempo);
@@ -667,7 +659,7 @@ function redireccionar() {
     $(".mensaje").text("Has fallado muchas veces, necesitaras estudia más.");
     $(".mensaje").fadeIn(tiempo, function () {
         $(".mensaje").animate({ fontSize: "60px" }, tiempo / 2).animate({ fontSize: "50px" }, tiempo / 2).fadeOut(tiempo / 2, function () {
-            window.location = "index_miProyecto.html";
+            window.location = "index.html";
         });
         $("*").hide(tiempo*2);
     });
@@ -683,10 +675,12 @@ function redireccionarFin() {
         $(".mensaje").animate({ fontSize: "50px" }, tiempo / 2);
         $("*").hide(tiempo * 4);
         $(".mensaje").fadeOut(tiempo / 2, function () {
-            window.location = "index_miProyecto.html";
+            window.location = "index.html";
         });
     });
 }
+
+/*************************FUNCIONES PARA TRABAJAR  CON LAS COOKIES  ***************************** */
 
 function ponerUnaCookie(clave, valor, dias = 0) {
     var miCookie = "";
@@ -703,9 +697,6 @@ function ponerUnaCookie(clave, valor, dias = 0) {
     }
     document.cookie = miCookie;
 }
-
-
-/*************************FUNCIONES PARA TRABAJAR  CON LAS COOKIES  ***************************** */
 
 function leerCookie(clave) {
     var resultado = "";
@@ -729,7 +720,7 @@ function modificarCookie(cookie, num) {
     document.cookie = cookie + "=" + (parseInt(leerCookie(cookie)) + num);
     document.getElementById("puntuacion").innerText = "Puntuacion: " + leerCookie("puntuacion");
 }
-
+/********************* FUNCION PARA PARA USAR A LA HORA DE INSERTAR DEPNDIENDO SI ESTA APRENDIDO O NO  ************************************************************************* */
 function numAle(i) {
     var ale=Math.floor(Math.random()*i);
     return ale;    

@@ -11,9 +11,10 @@
 </head>
 
 <body>
-	<h1>ESTUDIO DE LAS PLAGAS FORESTALES</h1>
-	<hr />
-
+	<div id="intro">
+		<h1>ESTUDIO DE LAS PLAGAS FORESTALES</h1>
+		<hr />
+	</div>
 	<div id="cuadroBotones">
 		<button id="botonCargar">Cargar Plagas</button>
 
@@ -27,29 +28,29 @@
 		<div class="info">
 			<div>
 				<span>ID plaga</span>
-				<input type="number" id="id">
+				<input type="number" id="id" readonly>
 			</div>
 			<div>
 				<span>Nombre Comun</span>
-				<input type="text" id="nComun">
+				<input type="text" id="nComun" readonly>
 			</div>
 			<div>
 				<span>Nombre Cientifico</span>
-				<input type="text" id="nCientifico">
+				<input type="text" id="nCientifico" readonly>
 			</div>
 			<div>
 				<span>Hospedante</span>
-				<input type="text" id="hospedante">
+				<input type="text" id="hospedante" readonly>
 			</div>
 			<div>
 				<span>Organimsmo de Cuarentena</span>
-				<input type="text" id="oCuarentena">
+				<input type="text" id="oCuarentena" readonly>
 			</div>
 			<div>
 				<span>Tratamiento Fitosanitario</span>
-				<input type="text" id="tFitosanitario">
+				<input type="text" id="tFitosanitario" readonly>
 			</div>
-			<a class="button" href="examen.html">Examen</a>
+			<a class="button" id="examen" href="examen.html">Examen</a>
 			<button class="button" onclick="hacerVisible()">SABER MÁS</button>
 		</div>
 		<div class="imagenes">

@@ -45,7 +45,8 @@ function codigo() {
 			console.log("IndexedDB no está soportado");
 		}
 
-		document.getElementById("botonCargar").disabled = true;
+		document.getElementById("botonCargar").style.display = "none";
+		document.getElementById("intro").style.display = "none";
 	}
 
 
@@ -65,11 +66,8 @@ function codigo() {
 			var registroEvento = almacenEvento.get(parseInt(id));
 			var botones = document.getElementsByClassName("button");
 			var imagenes = document.getElementsByClassName("imagenes")[0];
-			botones[0].style.display = "block";
 			botones[1].style.display = "block";
-			function hacerVisible(params) {
-				document.getElementById("modal_container").style.opacity = "1";
-			}
+
 			imagenes.style.display = "block";
 
 			registroEvento.onsuccess = function (evento) {
@@ -151,31 +149,51 @@ function crearIndicesBD() {
 				id: 7, nComun: "gran capricornio", nCientifico: "Cerambix cerdo", oCuarentena: "NO",
 				hospedante: "Quercus", tFitosanitario: "AZUFRE 80%", imagenAdulto: "Material/Fotos_Adultos/cerambixCerdo_adulto.jpg",
 				imagenLarva: "Material/fotos_Larvas/cerambyx_cerdo_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
-				imgDanio: "Material/fotos_daños/cerambix_danios.jpg", imgPuesta: "Material/Fotos_Nidos/cerambix_puesta.jpg" });
+				imgDanio: "Material/fotos_daños/cerambix_danios.jpg", imgPuesta: "Material/Fotos_Nidos/cerambix_puesta.jpg"
+			});
 
-			almacenPlagas.put({ id: 8, nComun: "mariposa lagarta cola parda", nCientifico: "Euproctis chrysorrhoea", oCuarentena: "NO", 
-			hospedante: "Salix", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/Euproctis chrysorrhoea_adulto.jpg",
-			 imagenLarva: "Material/fotos_Larvas/Euproctis chrysorrhoea_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
-				imgDanio: "Material/fotos_daños/euproctis_danios.jpg", imgPuesta: "Material/Fotos_Nidos/euproctis_puesta.png" });
+			almacenPlagas.put({
+				id: 8, nComun: "mariposa lagarta cola parda", nCientifico: "Euproctis chrysorrhoea", oCuarentena: "NO",
+				hospedante: "Salix", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/Euproctis chrysorrhoea_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Euproctis chrysorrhoea_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
+				imgDanio: "Material/fotos_daños/euproctis_danios.jpg", imgPuesta: "Material/Fotos_Nidos/euproctis_puesta.png"
+			});
 
-			/*almacenPlagas.put({ id: 9, nComun: "procesionaria del pino", nCientifico: "Thaumetopoea pityocampa", oCuarentena: "NO", 
-			hospedante: "Pinus", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/procesionariaAdulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/procesionaria1.png", aprendido: "no" });
-			
-			almacenPlagas.put({ id: 10, nComun: "chinche americana de las piñas", nCientifico: "Leptoglossus occidentalis", 
-			oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/Leptoglosus_adulto.jpg",
-			 imagenLarva: "Material/fotos_Larvas/Leptoglosus_larva.jpg", aprendido: "no" });
-			
-			almacenPlagas.put({ id: 11, nComun: "escarabajo rojo del chopo", nCientifico: "Chrysomela populi", 
-			oCuarentena: "NO", hospedante: "Populus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/Chrysomela_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Chrysomela_larva.jpg", aprendido: "no" });
+			almacenPlagas.put({
+				id: 9, nComun: "procesionaria del pino", nCientifico: "Thaumetopoea pityocampa", oCuarentena: "NO",
+				hospedante: "Pinus", tFitosanitario: "METALDEHIDO 5%", imagenAdulto: "Material/Fotos_Adultos/procesionariaAdulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/procesionaria1.png", aprendido: "no", imagenHospedante: "Material/fotos_arboles/pinos.jpg",
+				imgDanio: "Material/fotos_daños/procesionaria_daños.jpg", imgPuesta: "Material/Fotos_Nidos/procesionariaNido.jpg"
+			});
 
-			almacenPlagas.put({ id: 12, nComun: "gorgojo perforador del chopo", nCientifico: "Cryptorhynchus lapathi", 
-			oCuarentena: "NO", hospedante: "Populus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Chrysomela_adulto.jpg", 
-			imagenLarva: "Material/fotos_Larvas/Cryptorhynchus_Larva.jpg", aprendido: "no" });
-*/
+			almacenPlagas.put({
+				id: 10, nComun: "chinche americana de las piñas", nCientifico: "Leptoglossus occidentalis",
+				oCuarentena: "SI", hospedante: "Pinus", tFitosanitario: "FOSMET 20%", imagenAdulto: "Material/Fotos_Adultos/Leptoglosus_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Leptoglosus_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/pinos.jpg",
+				imgDanio: "Material/fotos_daños/leptoglosus_danios.jpg", imgPuesta: "Material/Fotos_Nidos/leptoglosus_puesta.jpg"
+			});
+
+			almacenPlagas.put({
+				id: 11, nComun: "escarabajo rojo del chopo", nCientifico: "Chrysomela populi",
+				oCuarentena: "NO", hospedante: "Populus", tFitosanitario: "Captan 80%", imagenAdulto: "Material/Fotos_Adultos/Chrysomela_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Chrysomela_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
+				imgDanio: "Material/fotos_daños/chrisomeli_danios.jpg", imgPuesta: "Material/Fotos_Nidos/Chrysomela_puesta.jpg"
+			});
+
+			almacenPlagas.put({
+				id: 12, nComun: "gorgojo perforador del chopo", nCientifico: "Cryptorhynchus lapathi",
+				oCuarentena: "NO", hospedante: "Populus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Cryptorhynchus_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/Cryptorhynchus_Larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/chopo.jpg",
+				imgDanio: "Material/fotos_daños/Cryptorhynchus_danios.jpg", imgPuesta: "Material/Fotos_Nidos/Cryptorhynchus_puesta.jpg"
+			});
+
+			almacenPlagas.put({
+				id: 13, nComun: "Catocala", nCientifico: "Catocala nymphagoga",
+				oCuarentena: "NO", hospedante: "Quercus", tFitosanitario: " OXIDO CUPROSO 50%", imagenAdulto: "Material/Fotos_Adultos/Catocala_adulto.jpg",
+				imagenLarva: "Material/fotos_Larvas/catocala_larva.jpg", aprendido: "no", imagenHospedante: "Material/fotos_arboles/quercus.jpg",
+				imgDanio: "Material/fotos_daños/catocala_danios.jpg", imgPuesta: "Material/Fotos_Nidos/catocala_puesta.jpg"
+			});
 		};
-
 
 		peticion.onerror = function (evento) {
 			alert("No se ha creado la base de datos: " + event.target.errorCode);
@@ -185,11 +203,6 @@ function crearIndicesBD() {
 			bd = peticion.result;
 			//CREO ALGO PARECIDO A LOS QUE SUELE SER LA CLAVE
 			almacenPlagas = bd.createObjectStore("plagas", { keyPath: "id" });
-
-			/*almacenPlagas.createIndex("por_ncom", "nComun", { unique: true });
-			almacenPlagas.createIndex("por_ncien", "nCientifico", { unique: true });
-			almacenPlagas.createIndex("por_huesped", "hospedante");*/
-
 		};
 	} else {
 		console.log("IndexedDB no está soportado");
@@ -202,5 +215,8 @@ function hacerVisible(params) {
 	setTimeout(function () {
 		document.getElementById("modal_container").style.opacity = "0";
 	}, 4000);
+	setTimeout(function () {
+		document.getElementById("examen").style.display = "block";
+	}, 30000);
 }
 
